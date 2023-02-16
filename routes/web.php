@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductsController;
 use Symfony\Component\HttpFoundation\Request;
 
 /*
@@ -49,20 +50,24 @@ use Symfony\Component\HttpFoundation\Request;
 //     return view('index',['title'=>'Products']);
 // });
 
-Route::get('/products', function () {
-    return view('index',[
-        'title'     =>  'Products',
-        'heading'   =>  'Coffee',
-        'product'   =>  [
-            [
-                'flavor'    =>  'Hazelnut',
-                'desc'      =>  'This coffee is hazelnut flavor.This coffee is hazelnut flavorThis coffee is hazelnut flavorThis coffee is hazelnut flavor.'
-            ],
-            [
-                'flavor'    =>  'Ice Americano',
-                'desc'      =>  'This is Ice Americano Flavor.'
-            ]
-        ]
-        
-    ]);
-});
+// Route::get('/products', function () {
+//     return view('index',
+//     [
+//         'title'     =>  'Products',
+//         'heading'   =>  'Coffee',
+//         'product'   =>  [
+//             [
+//                 'id'        =>  '1',
+//                 'flavor'    =>  'Hazelnut',
+//                 'desc'      =>  'This coffee is hazelnut flavor.This coffee is hazelnut flavorThis coffee is hazelnut flavorThis coffee is hazelnut flavor.'
+//             ],
+//             [
+//                 'id'        =>  '2',
+//                 'flavor'    =>  'Macchiato',
+//                 'desc'      =>  'This is Macchiato Flavor.'
+//             ]
+//         ]
+//     ]);
+// });
+
+Route::get('/products', [ProductsController::class, 'index'])->name('products.index');
