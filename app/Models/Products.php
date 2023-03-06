@@ -2,10 +2,22 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+class Products{
+    public static function all(){
 
-class Products extends Model
-{
-    use HasFactory;
+        $product_info =[
+                [
+                    'id'        =>  '1',
+                    'flavor'    =>  'Hazelnut',
+                    'desc'      =>  'This coffee is hazelnut flavor.This coffee is hazelnut flavorThis coffee is hazelnut flavorThis coffee is hazelnut flavor.'
+                ],
+                [
+                    'id'        =>  '2',
+                    'flavor'    =>  'Macchiato',
+                    'desc'      =>  'This is Macchiato Flavor.'
+                ]
+        ];
+        return ($product_info);
+        
+    }
 }

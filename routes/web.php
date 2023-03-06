@@ -71,6 +71,4 @@ use Symfony\Component\HttpFoundation\Request;
 //     ]);
 // });
 
-// Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-Route::resource('/products', ProductController::class);
-Route::resource('/admin', AdminController::class);
+Route::get('/products', [ProductsController::class, 'index'])->name('products.index');
