@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Products;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class ProductController extends Controller
     public function index()
     {
         //
-        return view('main.products',['coffee' => Products::all()]);
+        return view('admin.productTable',['product'  =>  Products::all()]);
     }
 
     /**
@@ -26,6 +26,8 @@ class ProductController extends Controller
     public function create()
     {
         //
+        return view('admin.productCreate');
+
     }
 
     /**
@@ -37,15 +39,18 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         //
+        $input = $request->all();
+        Products::create($input);
+        return redirect('/admin');  
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Products  $products
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Products $products)
+    public function show($id)
     {
         //
     }
@@ -53,34 +58,41 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Products  $products
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Products $products)
+    public function edit($id)
     {
         //
+        return view('admin.productEdit',['product' => Products::find($id)]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Products  $products
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Products $products)
+    public function update(Request $request, $id)
     {
         //
+        // $product = Products::find($id);
+        // $input = $request->all();
+        Products::find($id)->update($request->all());
+        return redirect('/admin');  
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Products  $products
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Products $products)
+    public function destroy($id)
     {
         //
+        Products::destroy($id);
+        return redirect('/admin');  
     }
 }

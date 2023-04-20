@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MainController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\TenantController;
 use App\Http\Controllers\ProductController;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -20,55 +22,53 @@ use Symfony\Component\HttpFoundation\Request;
 //     return view('welcome');
 // });
 
-// Route::get('/sample', function () {
+// Route::get('/', function () {
 //     return view('index');
 // });
 
 //Routing and Response
-// Route::get('/', function () {
-//     return response('<h1>Hello World<h1>');
+// Route::get('/response-sample', function () {
+//     return response('<h1>This is sample of response</h1>');
 // });
 
-//Wild card Endpoints
+//wildcard
 // Route::get('/sample/{id}', function ($id) {
 //     return response('Post '.$id);
 // });
 
-//Wild card with constraints
+//wildcard w/ constraint
 // Route::get('/sample/{id}', function ($id) {
 //     return response('Post '.$id);
 // })->where('id','[0-9]+');
 
-// // Request and Query Parameter
+//Request & Query Parameters
 // Route::get('/search', function (Request $request) {
-//     dd($request);
 //     // ddd($request);
-//     return ($request->name." ".$request->pet);
+//     // dd($request);
+//     return ($request->name.' '.$request->pet);
 // });
 
-// View Basics and Passing of data
+//Basic View and Passing of Data
 // Route::get('/products', function () {
-//     return view('index',['title'=>'Products']);
-// });
-
-// Route::get('/products', function () {
-//     return view('index',
-//     [
+//     return view('index',[
 //         'title'     =>  'Products',
 //         'heading'   =>  'Coffee',
-//         'product'   =>  [
-//             [
-//                 'id'        =>  '1',
-//                 'flavor'    =>  'Hazelnut',
-//                 'desc'      =>  'This coffee is hazelnut flavor.This coffee is hazelnut flavorThis coffee is hazelnut flavorThis coffee is hazelnut flavor.'
-//             ],
-//             [
-//                 'id'        =>  '2',
-//                 'flavor'    =>  'Macchiato',
-//                 'desc'      =>  'This is Macchiato Flavor.'
-//             ]
+//         'coffee'    =>  [[
+//             'id'        =>  '1',
+//             'flavor'    =>  'Hazelnut',
+//             'desc'      =>  'We take pride in our work, and it shows. Every time you order a beverage from us, we guarantee that it will be an experience worth having.'
+//         ],
+//         [
+//             'id'        =>  '2',
+//             'flavor'    =>  'Iced Americano',
+//             'desc'      =>  'We take pride in our work, and it shows. Every time you order a beverage from us, we guarantee that it will be an experience worth having.'
 //         ]
-//     ]);
+//     ]]);
 // });
 
-Route::get('/products', [ProductsController::class, 'index'])->name('products.index');
+Route::get('/products',[ProductController::class, 'index'])->name('main.products');
+
+Route::get('/register',[TenantController::class, 'create'])->name('main.tenant_register');
+Route::post('/register',[TenantController::class, 'store'])->name('main.tenant_store');
+
+Route::resource('/admin',AdminController::class);

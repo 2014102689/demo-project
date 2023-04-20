@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Products;
+use App\Models\User;
+use App\Models\Tenant;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class TenantController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +16,6 @@ class ProductController extends Controller
     public function index()
     {
         //
-        return view('main.products',['coffee' => Products::all()]);
     }
 
     /**
@@ -26,6 +26,7 @@ class ProductController extends Controller
     public function create()
     {
         //
+        return view('main.registration');
     }
 
     /**
@@ -37,15 +38,33 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'id' => 'unique:tenants|min:3|max:10|required',
+            'email' => 'unique:users|email|required',
+            'password' => 'required|confirmed|min:8'
+        ]);
+
+        $tenant = Tenant::create([
+            'id' => $request->id
+        ]);
+
+        $tenant->domains()->create([
+            'domain' => $request->id.'.'.request()->getHost()
+        ]);
+
+        Tenant::all()->runForEach(function () {
+            User::factory()->create();
+        });
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Products  $products
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Products $products)
+    public function show($id)
     {
         //
     }
@@ -53,10 +72,10 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Products  $products
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Products $products)
+    public function edit($id)
     {
         //
     }
@@ -65,10 +84,10 @@ class ProductController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Products  $products
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Products $products)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -76,10 +95,10 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Products  $products
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Products $products)
+    public function destroy($id)
     {
         //
     }

@@ -7,7 +7,7 @@
     <p>{{ $list['desc'] }}</p>
 @endforeach --}}
 @section('content')
-    @foreach ($product as $list)
+    @foreach ($coffee as $list)
     @if ($loop->odd)
         <section class="page-section">
             <div class="container">
@@ -20,7 +20,7 @@
                             </h2>
                         </div>
                     </div>
-                    <img class="product-item-img mx-auto d-flex rounded img-fluid mb-3 mb-lg-0" src="{{ $list['coffee_image'] }}" alt="..." />
+                    <img class="product-item-img mx-auto d-flex rounded img-fluid mb-3 mb-lg-0" src="{{ url('/assets/img/'.$list['coffee_image']) }}" alt="..." />
                     <div class="product-item-description d-flex me-auto">
                         <div class="bg-faded p-5 rounded"><p class="mb-0">{{ $list['desc'] }}</p></div>
                     </div>
@@ -39,7 +39,7 @@
                             </h2>
                         </div>
                     </div>
-                    <img class="product-item-img mx-auto d-flex rounded img-fluid mb-3 mb-lg-0" src="{{ $list['coffee_image'] }}" alt="..." />
+                    <img class="product-item-img mx-auto d-flex rounded img-fluid mb-3 mb-lg-0" src="{{ url('/assets/img/'.$list['coffee_image']) }}" alt="..." />
                     <div class="product-item-description d-flex ms-auto">
                         <div class="bg-faded p-5 rounded"><p class="mb-0">{{ $list['desc'] }}</p></div>
                     </div>
